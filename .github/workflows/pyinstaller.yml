@@ -21,8 +21,13 @@ jobs:
         id: artifact_patch_mac
         shell: sh
         run: |
-            chmod +x /Users/runner/work/REVHubInterface/REVHubInterface/dist/REVHubInterface.app/Contents/MacOS/REVHubInterface
-            chmod +x /Users/runner/work/REVHubInterface/REVHubInterface/dist/REVHubInterface
+            chmod +x ./dist/REVHubInterface.app/Contents/MacOS/REVHubInterface
+            chmod +x ./dist/REVHubInterface
+      # - name: Create Executable
+      #   id: artifact-create
+      #   shell: sh
+      #   run: 
+      #     sh ./
       - name: (Upload) Executable
         id: artifact_upload
         uses: actions/upload-artifact@v4
