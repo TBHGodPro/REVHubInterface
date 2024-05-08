@@ -27,8 +27,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "REVHubInterface Mac"
-          path: ""
-          compression-level: ""
+          path: "./dist"
+          compression-level: 6
         
       - name: (Upload) generated spec file - if .py
         if: endsWith('REVHubInterface-mac.spec', '.py')
