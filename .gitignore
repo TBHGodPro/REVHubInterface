@@ -6,3 +6,5 @@ __pycache__/
 /flatpak/build/
 /.idea/
 /flatpak/repo/
+
+**/.DS_Store

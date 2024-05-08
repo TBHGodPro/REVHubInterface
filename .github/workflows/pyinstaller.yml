@@ -14,8 +14,43 @@ jobs:
           pyinstaller_ver: '==6.6.0'
           spec: 'REVHubInterface-mac.spec'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'REVHubInterface Mac'
+          upload_exe_with_name: ''
           options: --onefile, --name "REVHubInterface", --windowed,
+      - name: Update Executable
+        id: artifact_patch_mac
+        shell: sh
+        run: |
+            chmod +x /Users/runner/work/REVHubInterface/REVHubInterface/dist/REVHubInterface.app/Contents/MacOS/REVHubInterface
+      - name: (Upload) Executable
+        id: artifact_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: "REVHubInterface Mac"
+          path: ""
+          compression-level: ""
+        
+      - name: (Upload) generated spec file - if .py
+        if: endsWith('REVHubInterface-mac.spec', '.py')
+        uses: actions/upload-artifact@v4
+        with:
+          name: Generated spec file
+          path: ${{ steps.mods.outputs.spec_name }}.spec
+    
+      - name: If executable upload success
+        id: exe_uploading
+        if: steps.artifact_upload.conclusion == 'success'
+        shell: bash
+        run: |
+          echo "✔️ Executable **_(REVHubInterface Mac)_** uploaded successfully" >> $GITHUB_STEP_SUMMARY
+          echo "uploaded='true'" >> $GITHUB_OUTPUT
+        
+      - name: If executable upload fails
+        if: failure() && steps.artifact_upload.conclusion == 'failure'
+        shell: bash
+        run: |
+            echo "::warning title=Failed-Upload::\
+            Executable couldn't upload. \
+            Check available storage at: 'settings > billing > Storage for Actions and Packages'."
   pyinstaller-build-win:
     runs-on: windows-latest
     steps:
