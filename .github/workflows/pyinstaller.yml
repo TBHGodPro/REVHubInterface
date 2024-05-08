@@ -48,7 +48,12 @@ jobs:
         id: exec-create
         shell: bash
         run: |
-          pyinstaller "REVHubInterface.spec"
+          pyinstaller \
+            --clean \
+            --noconfirm \
+            --dist ./dist \
+            \
+            "REVHubInterface-mac.spec"
       - name: Create App and DMG
         id: artifact-create
         shell: sh
