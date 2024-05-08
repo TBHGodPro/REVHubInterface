@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - trigger-actions
+      - workflow_dispatch
 
 jobs:
   pyinstaller-build-mac:
